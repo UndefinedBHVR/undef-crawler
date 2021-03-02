@@ -1,6 +1,6 @@
 use serde::Serialize;
 use std::{error::Error, fmt::Display};
-//Currently, the Crawler cannot error. Making this redundant. 
+// Currently, the Crawler cannot error. Making this unneccessary. However, incase of future development of this project, its better safe than sorry. 
 #[derive(Serialize, Debug)]
 pub enum CrawlerError {
     Unknown,

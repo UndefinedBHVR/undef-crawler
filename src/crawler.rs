@@ -82,6 +82,7 @@ impl Crawler {
         }
     }
 
+    // Simple hashset conversion wipes away duplicates.
     pub fn remove_duplicates(&mut self) {
         let mut uniques = HashSet::new();
         self.links.retain(|e| uniques.insert(e.clone()));
@@ -99,11 +100,14 @@ impl Crawler {
 
     // Add a URL to the list.
     pub fn add_url(&mut self, mut site: String) {
+        // Check if its a local domain
         if site.starts_with('/') {
             let mut s = self.url.clone();
             s.push_str(&site);
+            // Basically converts /example to https://example.com/example
             site = s;
             self.links.push(site.clone());
+            // Check if we have already visited this site.
             if !self.crawled.contains(&site) {
                 self.crawled.push(site.clone());
                 self.crawl(&site)
