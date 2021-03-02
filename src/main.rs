@@ -25,7 +25,7 @@ async fn scrape_domain(mut req: Request<Body>) -> Result<Response<Body>, Crawler
         Err(e) => return Ok(json_response(json!({"status": 500, "response": e}))),
     }.request;
     let mut crawler = Crawler::new(url.clone());
-    // We spawn a blocking task, as html5ever doesn't appear to like recursive async.
+     // We spawn a blocking task, rather than making the functions async, due to an issue with html5ever
     crawler = task::spawn_blocking(move || {
         crawler.crawl(&url);
         crawler
@@ -42,7 +42,7 @@ async fn scrape_unique(mut req: Request<Body>) -> Result<Response<Body>, Crawler
         Err(e) => return Ok(json_response(json!({"status": 500, "response": e}))),
     }.request;
     let mut crawler = Crawler::new(url.clone());
-    // We spawn a blocking task, as html5ever doesn't appear to like recursive async.
+    // We spawn a blocking task, rather than making the functions async, due to an issue with html5ever
     crawler = task::spawn_blocking(move || {
         crawler.crawl(&url);
         crawler
@@ -60,7 +60,7 @@ async fn unique_count(mut req: Request<Body>) -> Result<Response<Body>, CrawlerE
         Err(e) => return Ok(json_response(json!({"status": 500, "response": e}))),
     }.request;
     let mut crawler = Crawler::new(url.clone());
-    // We spawn a blocking task, as html5ever doesn't appear to like recursive async.
+    // We spawn a blocking task, rather than making the functions async, due to an issue with html5ever
     crawler = task::spawn_blocking(move || {
         crawler.crawl(&url);
         crawler
@@ -81,6 +81,7 @@ fn create_router() -> Router<Body, CrawlerError> {
 }
 
 async fn logger(req: Request<Body>) -> Result<Request<Body>, CrawlerError> {
+    // If the release config flag is not specified, we log every request.
     #[cfg(not(release))]
     println!(
         "{} {} {}",
