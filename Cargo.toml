@@ -1,0 +1,24 @@
+[package]
+name = "undef-crawler"
+version = "0.1.0"
+authors = ["BuildTools <wolfkingboyasriel@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# Hyper as a simple webserver interface
+hyper = "0.14.4"
+hyper-tls = "0.5.0"
+# Routerify as an abstraction over Hyper for handling routing and requests
+routerify = { git = "https://github.com/routerify/routerify.git", branch = "master" }
+# Html5Ever as a HTML parsing library, used for simplicity (Markup5Ever as well)
+html5ever = "0.25.1"
+markup5ever = "0.10.0"
+# Tokio, for asynchronous request handling
+tokio = { version = "1.2.0", features = ["full"] }
+# Serde for responses and parsing input if needed.
+serde = { version ="1.0.123", features = ["derive"] }
+serde_json = {version = "1.0.62", features = ["preserve_order"]}
+# Futures for handling async as sync
+futures = "0.3.13"
