@@ -19,7 +19,7 @@ curl --location --request GET '127.0.0.1:4001/scrape/unique' \
 --header 'Content-Type: application/json' \
 --data-raw '{"request": "https://pizzahut.com/"}'
 ```
->> Count all unique links on a shopping site
+> Count all unique links on a shopping site
 ```curl
 curl --location --request GET '127.0.0.1:4001/scrape/unique/count' \
 --header 'Content-Type: application/json' \
