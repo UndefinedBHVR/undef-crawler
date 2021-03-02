@@ -21,9 +21,11 @@ async fn scrape_domain(mut req: Request<Body>) -> Result<Response<Body>, Crawler
     // Convert JSON into Request IE: {0: "https://google.com"} or {0: "http://google.com"}
     let url = match parse_body::<Req>(&mut req).await {
         Ok(val) => val,
+        // Return malformed requests with what issue was detected.
         Err(e) => return Ok(json_response(json!({"status": 500, "response": e}))),
     }.request;
     let mut crawler = Crawler::new(url.clone());
+    // We spawn a blocking task, as html5ever doesn't appear to like recursive async.
     crawler = task::spawn_blocking(move || {
         crawler.crawl(&url);
         crawler
@@ -36,9 +38,11 @@ async fn scrape_unique(mut req: Request<Body>) -> Result<Response<Body>, Crawler
     // Convert JSON into Request IE: {0: "https://google.com"} or {0: "http://google.com"}
     let url = match parse_body::<Req>(&mut req).await {
         Ok(val) => val,
+        // Return malformed requests with what issue was detected.
         Err(e) => return Ok(json_response(json!({"status": 500, "response": e}))),
     }.request;
     let mut crawler = Crawler::new(url.clone());
+    // We spawn a blocking task, as html5ever doesn't appear to like recursive async.
     crawler = task::spawn_blocking(move || {
         crawler.crawl(&url);
         crawler
@@ -52,9 +56,11 @@ async fn unique_count(mut req: Request<Body>) -> Result<Response<Body>, CrawlerE
     // Convert JSON into Request IE: {0: "https://google.com"} or {0: "http://google.com"}
     let url = match parse_body::<Req>(&mut req).await {
         Ok(val) => val,
+        // Return malformed requests with what issue was detected.
         Err(e) => return Ok(json_response(json!({"status": 500, "response": e}))),
     }.request;
     let mut crawler = Crawler::new(url.clone());
+    // We spawn a blocking task, as html5ever doesn't appear to like recursive async.
     crawler = task::spawn_blocking(move || {
         crawler.crawl(&url);
         crawler
