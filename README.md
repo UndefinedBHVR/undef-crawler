@@ -13,11 +13,11 @@ curl --location --request GET '127.0.0.1:4001/scrape' \
 --header 'Content-Type: application/json' \
 --data-raw '{"request": "https://duckduckgo.com/"}'
 ```
-> Get every unique URL from Pizza hut's website
+> Get all unique links on a shopping site
 ```curl
 curl --location --request GET '127.0.0.1:4001/scrape/unique' \
 --header 'Content-Type: application/json' \
---data-raw '{"request": "https://pizzahut.com/"}'
+--data-raw '{"request": "https://webscraper.io/test-sites/e-commerce/allinone/"}'
 ```
 > Count all unique links on a shopping site
 ```curl
